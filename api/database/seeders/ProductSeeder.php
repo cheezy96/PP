@@ -35,6 +35,13 @@ class ProductSeeder extends Seeder
             'title' => 'Restaurant',
         ]);
 
+        DB::table('inventory_logs')->insert([
+            'id' => 1,
+            'code' => 'invetoryCode',
+            'product_id' => 1,
+            'qty' => 12,
+        ]);
+
         DB::table('products')->insert([
             'code' => 'qwerqwer',
             'name' => 'bobot',
@@ -43,6 +50,16 @@ class ProductSeeder extends Seeder
             'qty' => 25,
             'category_id' => 1,
             'store_id' => 1,
+        ]);
+
+        DB::table('products')->insert([
+            'code' => 'eggsandwhichcode',
+            'name' => 'Egg Sandwich',
+            'image' => 'eggSandwich.jpg',
+            'price' => 250,
+            'qty' => 25,
+            'category_id' => 2,
+            'store_id' => 2,
         ]);
     }
 }

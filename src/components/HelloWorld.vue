@@ -16,13 +16,14 @@
       <div class="text-center">
         <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
         <ul v-for="product in products">
-            <li> {{ product.category.title }}</li>      
+            <li> {{ product }}</li>      
         </ul>
         <h1 class="text-h2 font-weight-bold">Vuetify</h1>
+        <v-btn @click="btnClick">WooF!</v-btn>
       </div>
 
       <div class="py-4" />
-
+      {{ categories }}
       <v-row>
         <v-col cols="12">
           <v-card
@@ -161,24 +162,41 @@
 
 import api from '@/helpers/api';
 import { onMounted } from 'vue';
+import Swal from 'sweetalert2';
 
 let products = ref([]);
+let categories = ref([]);
 
-console.log(products);
-let entity = ref({
-      code: 'HARDCODE',
-      name: 'Fita',
-      price: 12,
-      qty: 10,
-      image: 'fita.jpg',
-      store_id: 1,
-      category_id: 1 ,
+let text1 = ref('');
+
+
+
+// let entity = ref({
+//     code: 'HARDCODE',
+//     name: 'Fita',
+//     price: 12,
+//     qty: 10,
+//     image: 'fita.jpg',
+//     store_id: 1,
+//     category_id: 1 ,
+// });
+
+async function btnClick(){
+  const { value: formValues } = await Swal.fire({
+  title: "Multiple inputs",
+  html: `
+    <input id="swal-input1" class="swal2-input">
+    <input id="swal-input2" class="swal2-input">
+  `,
+  focusConfirm: true,
   });
+}
+
 
 onMounted(async function() {
   // api.product.getAll();
-  
-  // products.value = (await (api.product.getAll())).data;
+  products.value = (await (api.product.get())).data;
+  categories.value = (await (api.category.get())).data;
   // products.value = await (api.product.getAll()).data;
   // let response = await api.product.getAll();
   // products.value = response.data;
