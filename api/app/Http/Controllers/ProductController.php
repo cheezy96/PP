@@ -12,6 +12,11 @@ class ProductController extends Controller
         return Product::with(['category', 'store'])->get();
     }
 
+    public function get($product_id) {
+        $product = Product::find($product_id);
+        return $product;
+    }
+
     public function create(Request $request) {
         $product = new Product();
         $product->code = $request->code;
@@ -44,6 +49,7 @@ class ProductController extends Controller
         $product->qty = $request->qty;
         $product->category_id = $request->category_id;
         $product->store_id = $request->store_id;
+        $product->created_at = $product->created_at; // Add this line to retain the original created_at value
         $product->save();
         return $product;
     }

@@ -12,13 +12,13 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/product', [ProductController::class, 'getAll']);
 Route::get('/product/{product_id}', [ProductController::class, 'get']);
-Route::post('/product', [ProductController::class, 'create']);
 Route::delete('/product/{product_id}', [ProductController::class, 'delete']);  
-Route::patch('/product', [ProductController::class, 'update']);
+Route::patch('/product/{product_id}', [ProductController::class, 'update']);
+Route::get('/product', [ProductController::class, 'getAll']);   
+Route::post('/product', [ProductController::class, 'create']);
 
-Route::post('/upload', "App\Http\Controllers\FileController@upload");
+// Route::post('/upload', "App\Http\Controllers\FileController@upload");
 // Route::get('/product', [ProductController::class, 'store'])->name('product.store');
 
 Route::get('/category', [CategoryController::class, 'get']);

@@ -21,7 +21,7 @@
                             @change="onFileChange($event.target.files[0])" class="mb-5" />
                         <v-text-field v-model="entity.code" variant="outlined" label="Product Code" required></v-text-field>
                         <v-text-field v-model="entity.name" variant="outlined" label="Name" required></v-text-field>
-                        <v-text-field v-model="entity.price" variant="outlined" label="Price" required></v-text-field>
+                        <v-text-field type="number" v-model="entity.price" variant="outlined" label="Price" required></v-text-field>
                         <v-select v-model="entity.category_id" :items="categories" item-title="title" item-value="id" variant="outlined"
                             label="Category" required></v-select>
                         <v-select v-model="entity.store_id" :items="stores" item-title="title" variant="outlined" item-value="id"
@@ -55,6 +55,18 @@ let entity = ref({
     store_id: 1,
 });
 
+// let update_entity = ref({
+//     code: '1234',
+//     name: 'Bobobot',
+//     price: 1234,
+//     qty: 10,
+//     image: 'avocado.jpg',
+//     category_id: 1,
+//     store_id: 1,
+// });
+
+
+
 let dialog = ref(false);
 
 let emit = defineEmits(['product-created'])
@@ -67,11 +79,19 @@ defineExpose({
 
 function create() {
     dialog.value = true;
+    entity.value = {
+        code: '1234',
+        name: 'Bobobot',
+        price: 1234,
+        qty: 10,
+        image: 'avocado.jpg',
+        category_id: 1,
+        store_id: 1,
+    };
 }
-function edit(product) {
+async function edit(product_id) {
     dialog.value = true;
-    entity.value = product;
-    console.log(product.code);
+    entity.value = { ...(await (api.product.get(product_id))).data };
 }
 async function refresh() {
     categories.value = (await (api.category.get())).data;
@@ -82,14 +102,25 @@ async function refresh() {
 async function submit() {
     dialog.value = false;
     if(entity.value.id) {
-        
+        Swal.fire({
+        title: "Success",
+        text: "Product updated successfully",
+        icon: "success",
+        confirmButtonColor: "#53b257",
+        confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                api.product.update(entity.value.id, entity.value);
+                refresh();
+            }
+        })
     }else{
         Swal.fire({
         title: "Success",
         text: "Product created successfully",
         icon: "success",
         confirmButtonColor: "#53b257",
-        confirmButtonText: "OK"
+        confirmButtonText: "OK",
     }).then((result) => {
         if (result.isConfirmed) {
             api.product.create(entity.value);
@@ -99,3 +130,8 @@ async function submit() {
     }
 }
 </script>
+
+<style>
+
+
+</style>

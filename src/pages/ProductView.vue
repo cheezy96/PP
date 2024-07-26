@@ -106,7 +106,7 @@
             <td>{{ product.category.title }}</td>
             <td>{{ product.store.title }}</td>
             <td>
-              <v-btn @click="productForm.edit(product)" class="bg-yellow-darken-4 text-white mx-2">Edit</v-btn>
+              <v-btn @click="productForm.edit(product.id)" class="bg-yellow-darken-4 text-white mx-2">Edit</v-btn>
               <v-btn @click="deleteProduct(product)" class="bg-red">Delete</v-btn>
             </td>
           </tr>

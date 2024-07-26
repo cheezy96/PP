@@ -1,4 +1,5 @@
 import Swal from "sweetalert2"
+import "../styles/style.css";
 
 export default {
     confirm: async function(title, text) {
@@ -10,7 +11,12 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "Yes, delete it!",
+                customClass: {
+                    // actions: 'my-actions', // actions means both buttons
+                    confirmButton:'btn-2',
+                    cancelButton:  'btn-1',
+                },
               }).then((result) => {
                 console.log(result);
                 if(result.isConfirmed) {
@@ -24,3 +30,4 @@ export default {
         return promise;
     }
 }
+
