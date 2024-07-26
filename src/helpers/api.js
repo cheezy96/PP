@@ -3,7 +3,7 @@ import ProductApi from "./product.api.js";
 import Api from "./api.base.js";
 import axios from "axios";
 
-let apiUrl = 'http://localhost/fab/api/public/api';
+let apiUrl = 'http://localhost/fabs/api/public/api';
 
 export default {
 
@@ -14,6 +14,9 @@ export default {
         
         get() {
             return axios.get(apiUrl + '/product');
+        },
+        getById(product_id) {
+            return axios.get(apiUrl + '/product/' + product_id);
         },
 
         delete(product_id){

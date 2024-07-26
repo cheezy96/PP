@@ -91,7 +91,14 @@ function create() {
 }
 async function edit(product_id) {
     dialog.value = true;
-    entity.value = { ...(await (api.product.get(product_id))).data };
+    let response = await api.product.getById(product_id);
+    entity.value = response.data;
+
+    console.log(entity.value);
+    entity.value.store_id = response.data.store.id;
+    // entity.value.category_id = response.data.category.title;
+    // console.log(response.data.category.title);
+
 }
 async function refresh() {
     categories.value = (await (api.category.get())).data;
