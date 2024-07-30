@@ -19,13 +19,15 @@
                             style="border: 1px dashed #ccc; min-height: 250px; margin-bottom: 1em;" />
                         <input type="file" label="Upload license" hint="Add a picture of youre license" outlined dense
                             @change="onFileChange($event.target.files[0])" class="mb-5" />
-                        <v-text-field v-model="entity.code" variant="outlined" label="Product Code" required></v-text-field>
+                        <v-text-field v-model="entity.code" variant="outlined" label="Product Code"
+                            required></v-text-field>
                         <v-text-field v-model="entity.name" variant="outlined" label="Name" required></v-text-field>
-                        <v-text-field type="number" v-model="entity.price" variant="outlined" label="Price" required></v-text-field>
-                        <v-select v-model="entity.category_id" :items="categories" item-title="title" item-value="id" variant="outlined"
-                            label="Category" required></v-select>
-                        <v-select v-model="entity.store_id" :items="stores" item-title="title" variant="outlined" item-value="id"
-                            label="Store" required></v-select>
+                        <v-text-field type="number" v-model="entity.price" variant="outlined" label="Price"
+                            required></v-text-field>
+                        <v-select v-model="entity.category_id" :items="categories" item-title="title" item-value="id"
+                            variant="outlined" label="Category" required></v-select>
+                        <v-select v-model="entity.store_id" :items="stores" item-title="title" variant="outlined"
+                            item-value="id" label="Store" required></v-select>
                         <div class="w-100">
                             <v-btn class="bg-green text-h5" size="x-large" text="Save" width="130" @click="submit()"
                                 style="text-align: center;"></v-btn>
@@ -87,6 +89,8 @@ function create() {
         image: 'avocado.jpg',
         category_id: 1,
         store_id: 1,
+        status_id: 1,
+        is_active: true,
     };
 }
 async function edit(product_id) {
@@ -94,10 +98,10 @@ async function edit(product_id) {
     let response = await api.product.getById(product_id);
     entity.value = response.data;
 
-    console.log(entity.value);
-    entity.value.store_id = response.data.store.id;
-    // entity.value.category_id = response.data.category.title;
-    // console.log(response.data.category.title);
+    entity.value.store_id = response.data.store.id; // para ma convert and id into title
+    entity.value.category_id = response.data.category.id; // para ma convert and id into title
+
+    // console.log(response.data);
 
 }
 async function refresh() {
@@ -108,37 +112,34 @@ async function refresh() {
 
 async function submit() {
     dialog.value = false;
-    if(entity.value.id) {
+    if (entity.value.id) {
         Swal.fire({
-        title: "Success",
-        text: "Product updated successfully",
-        icon: "success",
-        confirmButtonColor: "#53b257",
-        confirmButtonText: "OK"
+            title: "Success",
+            text: "Product updated successfully",
+            icon: "success",
+            confirmButtonColor: "#53b257",
+            confirmButtonText: "OK"
         }).then((result) => {
             if (result.isConfirmed) {
                 api.product.update(entity.value.id, entity.value);
                 refresh();
             }
         })
-    }else{
+    } else {
         Swal.fire({
-        title: "Success",
-        text: "Product created successfully",
-        icon: "success",
-        confirmButtonColor: "#53b257",
-        confirmButtonText: "OK",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            api.product.create(entity.value);
-            refresh();
-        }
-    })
+            title: "Success",
+            text: "Product created successfully",
+            icon: "success",
+            confirmButtonColor: "#53b257",
+            confirmButtonText: "OK",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                api.product.create(entity.value);
+                refresh();
+            }
+        })
     }
 }
 </script>
 
-<style>
-
-
-</style>
+<style></style>

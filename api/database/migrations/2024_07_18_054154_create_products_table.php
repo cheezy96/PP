@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('qty');
             $table->string('category_id');
             $table->string('store_id');
+            $table->string('status_id');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

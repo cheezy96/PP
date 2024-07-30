@@ -9,12 +9,15 @@ class ProductController extends Controller
 {
     
     public function getAll() {
-        return Product::with(['category', 'store'])->get();
+        return Product::with(['category', 'store', 'status'])->get();
     }
 
     public function get($product_id) {
-        $product = Product::find($product_id);
+        $product = Product::with(['category', 'store'])->findOrFail($product_id);
         return $product;
+        // $product = Product::findOrFail($product_id);
+        // return $product;
+
     }
 
     public function create(Request $request) {
@@ -26,6 +29,8 @@ class ProductController extends Controller
         $product->qty = $request->qty;
         $product->category_id = $request->category_id;
         $product->store_id = $request->store_id;
+        $product->status_id = $request->status_id;
+        $product->is_active = $request->is_active;
         $product->save();
         return $product;
     } 

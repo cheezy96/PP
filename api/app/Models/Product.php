@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'image', 'price', 'qty', 'category_id', 'store_id'];
+    protected $fillable = ['code', 'name', 'image', 'price', 'qty', 'category_id', 'store_id', 'status_id', 'is_active'];
 
     public function category(): BelongsTo
     {
@@ -20,5 +20,9 @@ class Product extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(Store::class, 'store_id');
+    }
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class, 'status_id');
     }
 }

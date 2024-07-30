@@ -50,6 +50,8 @@ class ProductSeeder extends Seeder
             'qty' => 25,
             'category_id' => 1,
             'store_id' => 1,
+            'status_id' => 1,
+            'is_active' => true,
         ]);
 
         DB::table('products')->insert([
@@ -60,6 +62,30 @@ class ProductSeeder extends Seeder
             'qty' => 25,
             'category_id' => 2,
             'store_id' => 2,
+            'status_id' => 2,
+            'is_active' => false,
+        ]);
+
+        DB::table('products')->insert([
+            'code' => 'hamsandwhichcode',
+            'name' => 'Ham Sandwich',
+            'image' => 'hamSandwich.jpg',
+            'price' => 265,
+            'qty' => 16,
+            'category_id' => 2,
+            'store_id' => 1,
+            'status_id' => 1,
+            'is_active' => true,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 1,
+            'available' => 'Out of Stock',
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 2,
+            'available' => 'Available',
         ]);
     }
 }

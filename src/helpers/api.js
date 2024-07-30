@@ -3,7 +3,7 @@ import ProductApi from "./product.api.js";
 import Api from "./api.base.js";
 import axios from "axios";
 
-let apiUrl = 'http://localhost/fabs/api/public/api';
+let apiUrl = 'http://localhost/PP/api/public/api';
 
 export default {
 
