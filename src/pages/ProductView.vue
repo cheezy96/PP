@@ -1,20 +1,33 @@
 <template>
   <v-app>
     <ProductForm @product-created="refresh()" ref="productForm"></ProductForm>
-    <v-app-bar class="text-h5 d-flex" height="90" order="0" style="background: #253772">
+    <v-app-bar
+      class="text-h5 d-flex"
+      height="90"
+      order="0"
+      style="background: #253772"
+    >
       <div class="" style="width: 250px">
-        <div class="font-weight-black text-left ml-10" style="
-              font-size: 2.5rem;
-              color: #fff;
-              width: 370px;
-              word-spacing: 5.5px;
-            ">
+        <div
+          class="font-weight-black text-left ml-10"
+          style="
+            font-size: 2.5rem;
+            color: #fff;
+            width: 370px;
+            word-spacing: 5.5px;
+          "
+        >
           KorPhil POS
         </div>
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer class="text-center" style="background: #fff" width="250" permanent>
+    <v-navigation-drawer
+      class="text-center"
+      style="background: #fff"
+      width="250"
+      permanent
+    >
       <div class="d-flex flex-column h-100 align-center py-10 foradmin">
         <div class="admin">
           <p class="title">Main Dashboard</p>
@@ -22,27 +35,44 @@
         </div>
 
         <div class="buttons">
-          <RouterLink to="/products" style="text-decoration: none; color: #253772">
+          <RouterLink
+            to="/products"
+            style="text-decoration: none; color: #253772"
+          >
             <button class="active">
-              <v-icon size="35" color="#fff" class="mr-2">mdi-clipboard-list</v-icon>Product Details
+              <v-icon size="35" color="#fff" class="mr-2"
+                >mdi-clipboard-list</v-icon
+              >Product Details
             </button>
           </RouterLink>
 
-          <RouterLink to="/category" style="text-decoration: none; color: #253772">
+          <RouterLink
+            to="/category"
+            style="text-decoration: none; color: #253772"
+          >
             <button>
-              <v-icon size="35" color="#253772" class="mr-2">mdi-format-list-bulleted-square</v-icon>Category
+              <v-icon size="35" color="#253772" class="mr-2"
+                >mdi-format-list-bulleted-square</v-icon
+              >Category
             </button>
           </RouterLink>
 
           <RouterLink to="/sales" style="text-decoration: none; color: #253772">
             <button>
-              <v-icon size="35" color="#253772" class="mr-2">mdi-chart-line</v-icon>Sales/Order Mngt
+              <v-icon size="35" color="#253772" class="mr-2"
+                >mdi-chart-line</v-icon
+              >Sales/Order Mngt
             </button>
           </RouterLink>
 
-          <RouterLink to="/reports" style="text-decoration: none; color: #253772">
+          <RouterLink
+            to="/reports"
+            style="text-decoration: none; color: #253772"
+          >
             <button>
-              <v-icon size="35" color="#253772" class="mr-2">mdi-file-clock</v-icon>Reports
+              <v-icon size="35" color="#253772" class="mr-2"
+                >mdi-file-clock</v-icon
+              >Reports
             </button>
           </RouterLink>
 
@@ -51,7 +81,7 @@
               >Settings
             </button> -->
         </div>
-        <v-btn class="w-75 bg-red" style="margin-top: 200px;">Log Out</v-btn>
+        <v-btn class="w-75 bg-red" style="margin-top: 200px">Log Out</v-btn>
       </div>
     </v-navigation-drawer>
 
@@ -62,7 +92,9 @@
         <v-btn class="bg-blue-darken-4 mr-5" @click="refresh()" width="30">
           <v-icon size="28" color="#fff">mdi-refresh</v-icon>
         </v-btn>
-        <v-btn class="bg-green" @click="productForm.create()"> + Add New Item</v-btn>
+        <v-btn class="bg-green" @click="productForm.create()">
+          + Add New Item</v-btn
+        >
       </div>
 
       <!-- <v-data-table :items="products"></v-data-table> -->
@@ -70,30 +102,14 @@
       <v-table theme="dark" class="w-100">
         <thead class="bg-blue-darken-4">
           <tr>
-            <th class="text-left">
-              Code
-            </th>
-            <th class="text-left">
-              Name
-            </th>
-            <th class="text-left">
-              Image
-            </th>
-            <th class="text-left">
-              Price
-            </th>
-            <th class="text-left">
-              Quantity
-            </th>
-            <th class="text-left">
-              Category
-            </th>
-            <th class="text-left">
-              Store
-            </th>
-            <th class="text-left">
-              Action
-            </th>
+            <th class="text-left">Code</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Image</th>
+            <th class="text-left">Price</th>
+            <th class="text-left">Quantity</th>
+            <th class="text-left">Category</th>
+            <th class="text-left">Store</th>
+            <th class="text-left">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -106,19 +122,76 @@
             <td>{{ product.category.title }}</td>
             <td>{{ product.store.title }}</td>
             <td>
-              <v-btn @click="productForm.edit(product.id)" class="bg-yellow-darken-4 text-white mx-2">Edit</v-btn>
-              <v-btn @click="deleteProduct(product)" class="bg-red">Delete</v-btn>
+              <v-btn
+                @click="productForm.edit(product.id)"
+                class="bg-yellow-darken-4 text-white mx-2"
+                >Edit</v-btn
+              >
+              <v-btn @click="deleteProduct(product)" class="bg-red"
+                >Delete</v-btn
+              >
             </td>
           </tr>
         </tbody>
       </v-table>
 
-      <form @submit.prevent="submit2" method="POST" enctype="multipart/form-data" action="{{ route('product.store') }}">
-        <input type="file" @change="onChange">
-        <input type="submit" value="Upload">
+      <!-- <form
+        @submit.prevent="submit2"
+        method="POST"
+        enctype="multipart/form-data"
+        action="{{ route('product.store') }}"
+      >
+        <input type="file" @change="onChange" />
+        <input
+          style="background-color: blue; color: white; padding: 10px"
+          type="submit"
+          value="Upload"
+        />
+      </form>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <input
+              type="file"
+              name="image"
+              placeholder="Choose image"
+              id="image"
+            />
+
+            <button type="submit" class="btn btn-primary" id="submit">
+              Submit2
+            </button>
+          </div>
+        </form>
+      </div> -->
+
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        id="upload-image"
+        action="{{ url('upload') }}"
+      >
+        <div>
+          <div>
+            <div >
+              <input
+                type="file"
+                name="image"
+                placeholder="Choose image"
+                id="image"
+              />
+              <div class="mt-1 mb-1">{{ $message }}</div>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" id="submit">
+              Submit
+            </button>
+          </div>
+        </div>
       </form>
     </v-main>
-
   </v-app>
 </template>
 
@@ -145,7 +218,7 @@
 
   .title {
     font-size: 24px;
-    font-weight: bold
+    font-weight: bold;
   }
 
   form {
@@ -248,7 +321,6 @@
       font-weight: bold;
       margin-bottom: 15px;
       color: #253772;
-
     }
   }
 
@@ -350,67 +422,64 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import 'vuetify/styles';
+import "vuetify/styles";
 import api from "@/helpers/api";
 import notify from "@/helpers/notify";
 import Swal from "sweetalert2";
 import ProductForm from "@/components/product/ProductForm.vue";
-
 
 let productForm = ref();
 let selectedCategory = ref();
 let selectedStore = ref();
 let products = ref([]);
 
-
-const imageUrl = ref('');
-
+const imageUrl = ref("");
 
 onMounted(refresh);
 
 async function refresh() {
-  products.value = (await (api.product.get())).data;
+  products.value = (await api.product.get()).data;
 }
 
 function onChange(e) {
-  console.log('selected file ', e.target.files[0]);
+  console.log("selected file ", e.target.files[0]);
   myimage2.value = e.target.files[0];
 }
 
-function submit2() {
-  let formData = new FormData();
-  formData.append('image', myimage2.value);
-  axios.post("http://localhost/fab/api/public/api/upload", formData).then(res => {
-    console.log('image uploaded successfully', res.data);
-    entity.value.image = res.data.filename;
-    // submit();
-  }).catch(err => console.log(err))
-}
-
-
+// function submit2() {
+//   let formData = new FormData();
+//   formData.append("image", myimage2.value);
+//   axios
+//     .post("http://localhost/fab/api/public/api/upload", formData)
+//     .then((res) => {
+//       console.log("image uploaded successfully", res.data);
+//       entity.value.image = res.data.filename;
+//       // submit();
+//     })
+//     .catch((err) => console.log(err));
+// }
 
 // async function getProducts(){
 //   let response = await axios.get('http://fab.test/api/foods');
 //   products.value = response.data;
 // }
 
-
-
 function updateProduct() {
   api.product.update(entity.id, entity.value);
 }
 
-function confirmDelete() {
-
-}
+function confirmDelete() {}
 
 async function deleteProduct(product) {
-
-  if(await notify.confirm("Do you want to delete this?", "You won't be able to revert this!")) {
-      await api.product.delete(product.id);
-      refresh();
+  if (
+    await notify.confirm(
+      "Do you want to delete this?",
+      "You won't be able to revert this!"
+    )
+  ) {
+    await api.product.delete(product.id);
+    refresh();
   }
-
 
   // .then((result) => {
   //   if (result.isConfirmed) {
@@ -434,23 +503,19 @@ function editProduct(product) {
   selectedStore.value = product.store_id;
 }
 
+const createImage = (file) => {
+  const reader = new FileReader();
 
-const createImage = file => {
-  const reader = new FileReader()
+  reader.onload = (e) => {
+    imageUrl.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
 
-  reader.onload = e => {
-    imageUrl.value = e.target.result
-  }
-  reader.readAsDataURL(file)
-}
-
-const onFileChange = file => {
+const onFileChange = (file) => {
   if (!file) {
-    return
+    return;
   }
-  createImage(file)
-}
-
-
-
+  createImage(file);
+};
 </script>

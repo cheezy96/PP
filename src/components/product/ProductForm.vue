@@ -98,6 +98,7 @@ async function edit(product_id) {
     let response = await api.product.getById(product_id);
     entity.value = response.data;
 
+
     entity.value.store_id = response.data.store.id; // para ma convert and id into title
     entity.value.category_id = response.data.category.id; // para ma convert and id into title
 

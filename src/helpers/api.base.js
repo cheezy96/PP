@@ -2,7 +2,7 @@ import axios from "axios";
 
 class Api {
     constructor(apiName) {
-        this.apiUrl = 'http://localhost/fab/api/public/api/';
+        this.apiUrl = 'http://localhost/PP/api/public/api/';
         this.apiName = apiName;
     }
     getAll() {
